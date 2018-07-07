@@ -89,10 +89,10 @@ class Builder
         foreach ($config['sources'] as $source => $targetinfo) {
             $this->output->writeln("Looking at source '$source'");
             if (is_dir($path . $d . $source)) { //source below path
-                $this->output->writeln("Rewritten to '" . $path . $d . $source . "'");
+
                 $this->getFiles($path . $d . $source, $targetinfo, $files);
             } elseif (is_dir($source)) { //hard coded path
-                $this->output->writeln("Rewritten to '" . $source . "'");
+
                 $this->getFiles($source, $targetinfo, $files);
             }
         }

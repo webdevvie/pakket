@@ -29,6 +29,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->outputInterface = \Mockery::mock('Symfony\Component\Console\Output\OutputInterface');
         $closure = new Closure(function ($out) {
+            $out = str_replace(__DIR__,"",$out);
             $this->writelines .= $out . "\n";
             return true;
         });
@@ -139,8 +140,10 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/Resources/nostub.phar',
             $config
         );
+
 //        file_put_contents(__DIR__ . '/Resources/build.nostub.out', $this->writelines);
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.nostub.out');
+
         $this->assertEquals($expectedOutput, $this->writelines);
     }
 
