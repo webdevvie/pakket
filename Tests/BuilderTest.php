@@ -31,6 +31,10 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->outputInterface = \Mockery::mock('Symfony\Component\Console\Output\OutputInterface');
         $closure = new Closure(function ($out) {
+            if(strstr($out,"vendor/"))
+            {
+                return true;
+            }
             $out = str_replace(__DIR__, "", $out);
             $this->writelines .= $out . "\n";
             return true;
