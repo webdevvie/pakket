@@ -1,0 +1,2 @@
+#!/usr/bin/env php
+<?php echo "You should specify a stub file in your config";Phar::interceptFileFuncs();Phar::mapPhar('{{PHARFILE}}');__HALT_COMPILER();

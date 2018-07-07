@@ -1,0 +1,6 @@
+#!/usr/bin/env php
+<?php
+Phar::interceptFileFuncs();
+Phar::mapPhar('{{PHARFILE}}');
+require 'phar://{{PHARFILE}}/console';
+__HALT_COMPILER();

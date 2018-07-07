@@ -1,0 +1,32 @@
+{
+    "name": "webdevvie/pakket",
+    "description": "Makes phar files from either inside your project or... outside of it as a phar itself!",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "John Bakker",
+            "email": "me@johnbakker.name"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0",
+        "webdevvie/nestis": "^1.0",
+        "symfony/console": "^4.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.3",
+        "squizlabs/php_codesniffer":"~2.0",
+        "mockery/mockery": "^0.9.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Webdevvie\\Pakket\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}

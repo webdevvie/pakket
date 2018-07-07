@@ -1,0 +1,26 @@
+<info>
+ ____   __   __ _  __ _  ____  ____
+(  _ \ / _\ (  / )(  / )(  __)(_  _)
+ ) __//    \ )  (  )  (  ) _)   )(
+(__)  \_/\_/(__\_)(__\_)(____) (__)
+</info>
+
+Written by John Bakker
+
+https://github.com/webdevvie/pakket
+
+There are two ways to use pakket. If you are running this as a phar use the .phar file name as your command.
+
+For the purposes of clarity this text will use ./pakket.phar as the command line tool.
+But you might be running it from the vendor directory in which case it may be vendor/bin/pakket
+
+Make sure you have a pakket.json file in your project directory and run the following :
+
+./pakket.phar path/to/your/project/dir path/to/target.phar
+
+The target phar file name is optional, if you created a pakket.json file in that directory.
+But if you specify it. That filename will be used instead of the one in pakket.json (handy for automated systems)
+
+For syntax on pakket.json see the README.MD or run :
+
+./pakket.phar readme

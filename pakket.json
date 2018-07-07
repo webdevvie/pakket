@@ -1,0 +1,34 @@
+{
+  "exclude": [
+    "/^Tests/i",
+    "/^coverage/i",
+    "/^pakket-(.*).phar/i",
+    "/^pakket.phar/i",
+    "/^Tests\\/(.*)/i",
+    "/^.git/i",
+    "/^(.*)\\/.git/i",
+    "/\\.gitignore/i",
+    "/\\.travis.yml/i",
+    "/\\.idea/i",
+    "/\\.idea\\/(.*)/i",
+    "/^vendor\\/(.*)\\/(.*)\\/Tests/i",
+    "/^vendor\\/(.*)\\/(.*)\\/Test/i",
+    "/^vendor\\/(.*)\\/Tests/i",
+    "/^vendor\\/doctrine/i",
+    "/^vendor\\/mockery/i",
+    "/^vendor\\/phpdocumentor/i",
+    "/^vendor\\/phpspec/i",
+    "/^vendor\\/phpunit/i",
+    "/^vendor\\/sebastian/i",
+    "/^vendor\\/squizlabs/i",
+    "/^vendor\\/webmozart/i"
+  ],
+  "vars":{
+    "VERSION":"1.0"
+  },
+  "parse": [
+    "/^console/i"
+  ],
+  "targetPath": "pakket.phar",
+  "stubFile": "stub"
+}
