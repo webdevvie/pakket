@@ -1,10 +1,11 @@
-<info>Compressing files with Gzip</info>
-<info>Buffering</info>
 Looking at source ''
 Rewritten to '/Users/john/projects/pakket/'
+<info>Compressing files with Gzip</info>
+<info>Buffering</info>
 <info>Adding file defaultStub</info>
 <info>Adding file composer.lock</info>
 <info>Adding file phpunit.xml</info>
+<info>Adding file LICENSE</info>
 <info>Adding file ReadmeCommand.php</info>
 <info>Adding file HelpCommand.php</info>
 <info>Adding file Builder.php</info>
@@ -208,16 +209,6 @@ Rewritten to '/Users/john/projects/pakket/'
 <info>Adding file vendor/composer/autoload_real.php</info>
 <info>Adding file vendor/composer/installed.json</info>
 <info>Adding file vendor/composer/autoload_files.php</info>
-<info>Adding dir vendor/webdevvie</info>
-<info>Adding dir vendor/webdevvie/nestis</info>
-<info>Adding dir vendor/webdevvie/nestis/Webdevvie</info>
-<info>Adding dir vendor/webdevvie/nestis/Webdevvie/Nestis</info>
-<info>Adding file vendor/webdevvie/nestis/Webdevvie/Nestis/composer.lock</info>
-<info>Adding file vendor/webdevvie/nestis/Webdevvie/Nestis/phpunit.xml</info>
-<info>Adding file vendor/webdevvie/nestis/Webdevvie/Nestis/LICENSE</info>
-<info>Adding file vendor/webdevvie/nestis/Webdevvie/Nestis/Nestis.php</info>
-<info>Adding file vendor/webdevvie/nestis/Webdevvie/Nestis/README.md</info>
-<info>Adding file vendor/webdevvie/nestis/Webdevvie/Nestis/composer.json</info>
 <info>Adding dir vendor/symfony</info>
 <info>Adding dir vendor/symfony/polyfill-ctype</info>
 <info>Adding file vendor/symfony/polyfill-ctype/LICENSE</info>
@@ -357,6 +348,5 @@ Rewritten to '/Users/john/projects/pakket/'
 <info>Adding file vendor/symfony/polyfill-mbstring/README.md</info>
 <info>Adding file vendor/symfony/polyfill-mbstring/composer.json</info>
 <info>Adding parsed file console</info>
-<info>Adding dir src</info>
 <info>Writing stub</info>
 <info>Writing file</info>

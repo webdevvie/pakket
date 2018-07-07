@@ -70,7 +70,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/Resources/testCustomStub.phar',
             $config
         );
-        file_put_contents(__DIR__ . '/Resources/build.customstub.out', $this->writelines);
+//        file_put_contents(__DIR__ . '/Resources/build.customstub.out', $this->writelines);
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.customstub.out');
         if (file_exists(realpath(__DIR__ . '/Resources/testCustomStub.phar'))) {
             unlink(realpath(__DIR__ . '/Resources/testCustomStub.phar'));
@@ -88,7 +88,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/Resources/testCustomStubDefault.phar',
             $config
         );
-        file_put_contents(__DIR__ . '/Resources/build.testCustomStubDefault.out', $this->writelines);
+//        file_put_contents(__DIR__ . '/Resources/build.testCustomStubDefault.out', $this->writelines);
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.testCustomStubDefault.out');
         if (file_exists(realpath(__DIR__ . '/Resources/testCustomStubDefault.phar'))) {
             unlink(realpath(__DIR__ . '/Resources/testCustomStubDefault.phar'));
@@ -106,7 +106,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/Resources/hardpath.phar',
             $config
         );
-        file_put_contents(__DIR__ . '/Resources/build.hardpath.out', $this->writelines);
+//        file_put_contents(__DIR__ . '/Resources/build.hardpath.out', $this->writelines);
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.hardpath.out');
         if (file_exists(realpath(__DIR__ . '/Resources/hardpath.phar'))) {
             unlink(realpath(__DIR__ . '/Resources/hardpath.phar'));
@@ -124,7 +124,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/Resources/testCustomStubInvalid.phar',
             $config
         );
-        file_put_contents(__DIR__ . '/Resources/build.invalidstub.out', $this->writelines);
+//        file_put_contents(__DIR__ . '/Resources/build.invalidstub.out', $this->writelines);
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.invalidstub.out');
         $this->assertEquals($expectedOutput, $this->writelines);
     }
@@ -139,7 +139,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/Resources/nostub.phar',
             $config
         );
-        file_put_contents(__DIR__ . '/Resources/build.nostub.out', $this->writelines);
+//        file_put_contents(__DIR__ . '/Resources/build.nostub.out', $this->writelines);
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.nostub.out');
         $this->assertEquals($expectedOutput, $this->writelines);
     }
@@ -166,7 +166,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             '',
             null
         );
-        file_put_contents(__DIR__ . '/Resources/build.notargetnullconfig.out', $this->writelines);
+//        file_put_contents(__DIR__ . '/Resources/build.notargetnullconfig.out', $this->writelines);
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.notargetnullconfig.out');
         $this->assertEquals($expectedOutput, $this->writelines);
     }
@@ -178,7 +178,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             '',
             null
         );
-        file_put_contents(__DIR__ . '/Resources/build.invalidpath.out', $this->writelines);
+//        file_put_contents(__DIR__ . '/Resources/build.invalidpath.out', $this->writelines);
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.invalidpath.out');
         $this->assertEquals($expectedOutput, $this->writelines);
     }
