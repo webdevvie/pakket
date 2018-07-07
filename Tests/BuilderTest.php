@@ -24,12 +24,14 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
      */
     private $writelines = '';
 
+    private $regenerateExpected =false;
+
     public function setUp()
     {
 
         $this->outputInterface = \Mockery::mock('Symfony\Component\Console\Output\OutputInterface');
         $closure = new Closure(function ($out) {
-            $out = str_replace(__DIR__,"",$out);
+            $out = str_replace(__DIR__, "", $out);
             $this->writelines .= $out . "\n";
             return true;
         });
@@ -52,7 +54,9 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/Resources/testBuild.phar',
             json_decode(file_get_contents(realpath(__DIR__ . '/../pakket.json')), true)
         );
-//        file_put_contents(__DIR__ . '/Resources/build.out', $this->writelines);
+        if ($this->regenerateExpected) {
+            file_put_contents(__DIR__ . '/Resources/build.out', $this->writelines);
+        }
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.out');
         if (file_exists(realpath(__DIR__ . '/Resources/testBuild.phar'))) {
             unlink(realpath(__DIR__ . '/Resources/testBuild.phar'));
@@ -71,7 +75,9 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/Resources/testCustomStub.phar',
             $config
         );
-//        file_put_contents(__DIR__ . '/Resources/build.customstub.out', $this->writelines);
+        if ($this->regenerateExpected) {
+            file_put_contents(__DIR__ . '/Resources/build.customstub.out', $this->writelines);
+        }
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.customstub.out');
         if (file_exists(realpath(__DIR__ . '/Resources/testCustomStub.phar'))) {
             unlink(realpath(__DIR__ . '/Resources/testCustomStub.phar'));
@@ -83,31 +89,36 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         $config = json_decode(file_get_contents(realpath(__DIR__ . '/../pakket.json')), true);
         $config['stub'] = '';
-        $config['stubFile'] = __DIR__.'/Resources/defaultStub';
+        $config['stubFile'] = __DIR__ . '/Resources/defaultStub';
         $this->builder->build(
             realpath(__DIR__ . '/Resources/testproj'),
             __DIR__ . '/Resources/testCustomStubDefault.phar',
             $config
         );
-//        file_put_contents(__DIR__ . '/Resources/build.testCustomStubDefault.out', $this->writelines);
+        if ($this->regenerateExpected) {
+            file_put_contents(__DIR__ . '/Resources/build.testCustomStubDefault.out', $this->writelines);
+        }
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.testCustomStubDefault.out');
         if (file_exists(realpath(__DIR__ . '/Resources/testCustomStubDefault.phar'))) {
             unlink(realpath(__DIR__ . '/Resources/testCustomStubDefault.phar'));
         }
         $this->assertEquals($expectedOutput, $this->writelines);
     }
+
     public function testBuilderHardPath()
     {
         $config = json_decode(file_get_contents(realpath(__DIR__ . '/../pakket.json')), true);
         $config['stub'] = '';
-        $config['stubFile'] = __DIR__.'/Resources/defaultStub';
-        $config['sources'][__DIR__.'/Resources/extra/']="";
+        $config['stubFile'] = __DIR__ . '/Resources/defaultStub';
+        $config['sources'][__DIR__ . '/Resources/extra/'] = "";
         $this->builder->build(
             realpath(__DIR__ . '/Resources/testproj'),
             __DIR__ . '/Resources/hardpath.phar',
             $config
         );
-//        file_put_contents(__DIR__ . '/Resources/build.hardpath.out', $this->writelines);
+        if ($this->regenerateExpected) {
+            file_put_contents(__DIR__ . '/Resources/build.hardpath.out', $this->writelines);
+        }
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.hardpath.out');
         if (file_exists(realpath(__DIR__ . '/Resources/hardpath.phar'))) {
             unlink(realpath(__DIR__ . '/Resources/hardpath.phar'));
@@ -140,10 +151,10 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             __DIR__ . '/Resources/nostub.phar',
             $config
         );
-
-//        file_put_contents(__DIR__ . '/Resources/build.nostub.out', $this->writelines);
+        if ($this->regenerateExpected) {
+            file_put_contents(__DIR__ . '/Resources/build.nostub.out', $this->writelines);
+        }
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.nostub.out');
-
         $this->assertEquals($expectedOutput, $this->writelines);
     }
 
@@ -156,7 +167,9 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             '',
             $config
         );
-//        file_put_contents(__DIR__ . '/Resources/build.notarget.out', $this->writelines);
+        if ($this->regenerateExpected) {
+            file_put_contents(__DIR__ . '/Resources/build.notarget.out', $this->writelines);
+        }
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.notarget.out');
         $this->assertEquals($expectedOutput, $this->writelines);
     }
@@ -169,10 +182,13 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             '',
             null
         );
-//        file_put_contents(__DIR__ . '/Resources/build.notargetnullconfig.out', $this->writelines);
+        if ($this->regenerateExpected) {
+            file_put_contents(__DIR__ . '/Resources/build.notargetnullconfig.out', $this->writelines);
+        }
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.notargetnullconfig.out');
         $this->assertEquals($expectedOutput, $this->writelines);
     }
+
     public function testBuilderNoTargetNullConfigInvalidPath()
     {
 
@@ -181,7 +197,9 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             '',
             null
         );
-//        file_put_contents(__DIR__ . '/Resources/build.invalidpath.out', $this->writelines);
+        if ($this->regenerateExpected) {
+            file_put_contents(__DIR__ . '/Resources/build.invalidpath.out', $this->writelines);
+        }
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.invalidpath.out');
         $this->assertEquals($expectedOutput, $this->writelines);
     }

@@ -106,6 +106,7 @@ class Builder
             $this->output->writeln("<info>Buffering</info>");
             $pharFile->startBuffering();
         }
+        ksort($files);
         foreach ($files as $file => $fileData) {
             if (!$this->shouldKeep($file, $config)) {
                 continue;
