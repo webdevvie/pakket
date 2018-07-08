@@ -70,7 +70,7 @@ This is a sample pakket.json that is used for pakket itself
   ],
   "targetPath": "yourphar.phar",
   "stubFile": "stub"
-  "vars":{}
+  "vars": {}
 }
 ```
 In this case we create the file `yourphar.phar` parsing the /console file to include the default variables.
