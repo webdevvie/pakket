@@ -69,7 +69,7 @@ This is a sample pakket.json that is used for pakket itself
     "/^console/i"
   ],
   "targetPath": "yourphar.phar",
-  "stubFile": "stub"
+  "stubFile": "stub",
   "vars": {}
 }
 ```
