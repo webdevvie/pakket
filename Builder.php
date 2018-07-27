@@ -38,8 +38,8 @@ class Builder
         }
         $path = realpath($path);
         $defaultConfig = [
-            "gzip" => true,
-            "buffer" => true,
+            "gzip" => false,
+            "buffer" => false,
             "stubFile" => __DIR__ . '/defaultStub',
             "stub" => "",
             "sources" => ["" => ""],
@@ -68,36 +68,50 @@ class Builder
             unlink($config['targetPath']);
         }
         $filename = array_pop($parts);
-        if ($config['stub'] == '' && $config['stubFile'] != '') {
-            if (file_exists($path . $d . $config['stubFile'])) {
-                $config['stub'] = file_get_contents($path . $d . $config['stubFile']);
-            } elseif (file_exists($config['stubFile'])) {
-                $config['stub'] = file_get_contents($config['stubFile']);
-            } else {
-                $this->output->writeln("<error>No stub or stubFile defined</error>");
-                return false;
-            }
-        } elseif ($config['stub'] == '') {
-            $this->output->writeln("<error>No stub or stubFile defined</error>");
-            return false;
-        }
-        $stub = $config['stub'];
-        $stub = str_replace("{{PHARFILE}}", $filename, $stub);
-        $config['vars']['PHARFILE'] = $filename;
 
+        $config['vars']['PHARFILE'] = $filename;
         $files = [];
         foreach ($config['sources'] as $source => $targetinfo) {
             $this->output->writeln("Looking at source '$source'");
             if (is_dir($path . $d . $source)) { //source below path
-
                 $this->getFiles($path . $d . $source, $targetinfo, $files);
             } elseif (is_dir($source)) { //hard coded path
-
                 $this->getFiles($source, $targetinfo, $files);
             }
         }
         $pharFile = new \Phar($targetPath, 0, $filename);
         $pharFile->setSignatureAlgorithm(\Phar::SHA512);
+        if (isset($config['index'])) {
+            if (isset($config['indexWeb'])) {
+                $config['stub'] = $pharFile->createDefaultStub($config['index'], $config['indexWeb']);
+            } else {
+                $config['stub'] = $pharFile->createDefaultStub($config['index']);
+            }
+            $stub = "#!/usr/bin/env php\n".$config['stub'];
+        } else {
+            if ($config['stub'] == '' && $config['stubFile'] != '') {
+                if (file_exists($path . $d . $config['stubFile'])) {
+                    $this->output->writeln("Using stub file: " . $path . $d . $config['stubFile']);
+                    $config['stub'] = file_get_contents($path . $d . $config['stubFile']);
+                } elseif (file_exists($config['stubFile'])) {
+                    $this->output->writeln("Using stub file: " . $config['stubFile']);
+                    $config['stub'] = file_get_contents($config['stubFile']);
+                } else {
+                    $this->output->writeln("<error>No stub or stubFile defined</error>");
+                    return false;
+                }
+            } elseif ($config['stub'] == '') {
+                $this->output->writeln("<error>No stub or stubFile defined</error>");
+                return false;
+            } else {
+                $this->output->writeln("<error>No stub or stubFile defined</error>");
+            }
+
+            $stub = $config['stub'];
+            $stub = str_replace("{{PHARFILE}}", $filename, $stub);
+        }
+
+
         if ($config['gzip']) {
             $this->output->writeln("<info>Compressing files with Gzip</info>");
             $pharFile->compressFiles(\Phar::GZ);
@@ -107,6 +121,7 @@ class Builder
             $pharFile->startBuffering();
         }
         ksort($files);
+        $queue = [];
         foreach ($files as $file => $fileData) {
             if (!$this->shouldKeep($file, $config)) {
                 continue;
@@ -122,12 +137,26 @@ class Builder
                         $this->parse(file_get_contents($fileData['source']), $config['vars'])
                     );
                 } else {
-                    $this->output->writeln("<info>Adding file $file</info>");
-                    $pharFile->addFile($fileData['source'], $file);
+                    $this->output->writeln("<info>Queueing file $file</info>");
+                    $queue[$file] = $fileData['source'];
                 }
             }
+            if (count($queue) >= 500) {
+                $this->output->writeln("<info>Adding Queued files(" . count($queue) . ")</info>");
+                $pharFile->buildFromIterator(
+                    new \ArrayIterator($queue)
+                );
+                $queue = [];
+            }
         }
-
+        if (count($queue) >= 0) {
+            $this->output->writeln("<info>Adding Queued files(" . count($queue) . ")</info>");
+            $pharFile->buildFromIterator(
+                new \ArrayIterator($queue)
+            );
+            $queue = [];
+        }
+        $pharFile->addFile($fileData['source'], $file);
         $pharFile->addFromString('packageInfo', "Packaged with Pakket!");
         $this->output->writeln("<info>Writing stub</info>");
         $pharFile->setStub($stub);
@@ -136,6 +165,15 @@ class Builder
             $pharFile->stopBuffering();
         }
         return true;
+    }
+
+    /**
+     * @param string $dir
+     * @return boolean|null
+     */
+    private function isDirEmpty($dir)
+    {
+        return (count(scandir($dir)) == 2);
     }
 
     /**
@@ -199,7 +237,11 @@ class Builder
                 continue;
             }
             if (is_dir($name)) {
-                $info = ['type' => 'dir'];
+                if ($this->isDirEmpty($name)) {
+                    $info = ['type' => 'dir'];
+                } else {
+                    continue;
+                }
             } else {
                 $info = ["type" => 'file'];
             }

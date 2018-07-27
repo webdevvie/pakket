@@ -30,5 +30,7 @@
     "/^console/i"
   ],
   "targetPath": "pakket.phar",
-  "stubFile": "stub"
+  "index": "console",
+  "gzip":true,
+  "buffer":true
 }

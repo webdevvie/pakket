@@ -46,6 +46,7 @@ class BuildCommand extends Command
             "targetFile" => $targetFile,
         ];
         $configFile = [];
+        $output->writeln("<info> Looking at pakket.json:</info>" . $realpath . '/pakket.json');
         if (file_exists($realpath . '/pakket.json')) {
             $output->writeln("<comment>Using pakket.json</comment>");
             $configFile = json_decode(file_get_contents($realpath . '/pakket.json'), true);
@@ -53,6 +54,9 @@ class BuildCommand extends Command
                 $output->writeln("<error>Invalid pakket.json</error>");
                 return;
             }
+        } else {
+            $output->writeln("<error>Cannot find pakket.json</error>");
+            return;
         }
         $config = array_merge($config, $configFile);
         $builder = new Builder($output);

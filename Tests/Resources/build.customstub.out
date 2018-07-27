@@ -1,6 +1,7 @@
 Looking at source ''
 <info>Compressing files with Gzip</info>
 <info>Buffering</info>
-<info>Adding file defaultStubTest</info>
+<info>Queueing file defaultStubTest</info>
+<info>Adding Queued files(1)</info>
 <info>Writing stub</info>
 <info>Writing file</info>

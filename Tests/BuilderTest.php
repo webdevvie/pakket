@@ -24,15 +24,14 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
      */
     private $writelines = '';
 
-    private $regenerateExpected =false;
+    private $regenerateExpected = false;
 
     public function setUp()
     {
 
         $this->outputInterface = \Mockery::mock('Symfony\Component\Console\Output\OutputInterface');
         $closure = new Closure(function ($out) {
-            if(strstr($out,"vendor/"))
-            {
+            if (strstr($out, "vendor/")) {
                 return true;
             }
             $out = str_replace(__DIR__, "", $out);
@@ -135,12 +134,19 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $config = json_decode(file_get_contents(realpath(__DIR__ . '/../pakket.json')), true);
         $config['stub'] = '';
         $config['stubFile'] = 'stoober';
+        unset($config['index']);
+        unset($config['indexWeb']);
         $this->builder->build(
             realpath(__DIR__ . '/Resources/testproj/'),
             __DIR__ . '/Resources/testCustomStubInvalid.phar',
             $config
         );
-//        file_put_contents(__DIR__ . '/Resources/build.invalidstub.out', $this->writelines);
+        if ($this->regenerateExpected) {
+            file_put_contents(__DIR__ . '/Resources/build.invalidstub.out', $this->writelines);
+        }
+        if (file_exists(realpath(__DIR__ . '/Resources/testCustomStubInvalid.phar'))) {
+            unlink(realpath(__DIR__ . '/Resources/testCustomStubInvalid.phar'));
+        }
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.invalidstub.out');
         $this->assertEquals($expectedOutput, $this->writelines);
     }
@@ -150,6 +156,8 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $config = json_decode(file_get_contents(realpath(__DIR__ . '/../pakket.json')), true);
         $config['stub'] = '';
         $config['stubFile'] = '';
+        unset($config['index']);
+        unset($config['indexWeb']);
         $this->builder->build(
             realpath(__DIR__ . '/../'),
             __DIR__ . '/Resources/nostub.phar',
@@ -157,6 +165,9 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         );
         if ($this->regenerateExpected) {
             file_put_contents(__DIR__ . '/Resources/build.nostub.out', $this->writelines);
+        }
+        if (file_exists(realpath(__DIR__ . '/Resources/nostub.phar'))) {
+            unlink(realpath(__DIR__ . '/Resources/nostub.phar'));
         }
         $expectedOutput = file_get_contents(__DIR__ . '/Resources/build.nostub.out');
         $this->assertEquals($expectedOutput, $this->writelines);

@@ -1,24 +1,25 @@
 Looking at source ''
 <info>Compressing files with Gzip</info>
 <info>Buffering</info>
-<info>Adding file BuildCommand.php</info>
-<info>Adding file Builder.php</info>
-<info>Adding file HelpCommand.php</info>
-<info>Adding file LICENSE</info>
-<info>Adding file README.md</info>
-<info>Adding file ReadmeCommand.php</info>
-<info>Adding file composer.json</info>
-<info>Adding file composer.lock</info>
+<info>Queueing file BuildCommand.php</info>
+<info>Queueing file Builder.php</info>
+<info>Queueing file HelpCommand.php</info>
+<info>Queueing file LICENSE</info>
+<info>Queueing file README.md</info>
+<info>Queueing file ReadmeCommand.php</info>
+<info>Queueing file composer.json</info>
+<info>Queueing file composer.lock</info>
 <info>Adding parsed file console</info>
-<info>Adding file defaultStub</info>
-<info>Adding file help.txt</info>
-<info>Adding file logo.txt</info>
-<info>Adding file package.sh</info>
-<info>Adding file pakket.json</info>
-<info>Adding file phpcs.xml</info>
-<info>Adding file phpunit.xml</info>
-<info>Adding file runbuild.sh</info>
-<info>Adding file stub</info>
-<info>Adding dir vendor</info>
+<info>Queueing file defaultStub</info>
+<info>Queueing file help.txt</info>
+<info>Queueing file install.sh</info>
+<info>Queueing file logo.txt</info>
+<info>Queueing file package.sh</info>
+<info>Queueing file pakket.json</info>
+<info>Queueing file phpcs.xml</info>
+<info>Queueing file phpunit.xml</info>
+<info>Queueing file runbuild.sh</info>
+<info>Queueing file stub</info>
+<info>Adding Queued files(279)</info>
 <info>Writing stub</info>
 <info>Writing file</info>
