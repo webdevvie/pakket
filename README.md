@@ -99,6 +99,3 @@ The following things are still todos :
  - A setup command that configures the pakket.json file
  - A better help text
  - Get a place to host the .phar file
- - Test with php 5.6
- - Test with php 7.0
- - Test with php 7.2
