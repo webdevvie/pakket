@@ -8,7 +8,6 @@ Looking at source ''
 <info>Queueing file README.md</info>
 <info>Queueing file ReadmeCommand.php</info>
 <info>Queueing file composer.json</info>
-<info>Queueing file composer.lock</info>
 <info>Adding parsed file console</info>
 <info>Queueing file defaultStub</info>
 <info>Queueing file help.txt</info>
@@ -20,6 +19,6 @@ Looking at source ''
 <info>Queueing file phpunit.xml</info>
 <info>Queueing file runbuild.sh</info>
 <info>Queueing file stub</info>
-<info>Adding Queued files(279)</info>
+<info>Adding Queued files(#)</info>
 <info>Writing stub</info>
 <info>Writing file</info>

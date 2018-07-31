@@ -24,7 +24,10 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
      */
     private $writelines = '';
 
-    private $regenerateExpected = false;
+    /**
+     * @var boolean
+     */
+    private $regenerateExpected = true;
 
     public function setUp()
     {
@@ -33,6 +36,11 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $closure = new Closure(function ($out) {
             if (strstr($out, "vendor/")) {
                 return true;
+            }
+            if (strstr($out, "Adding Queued files")) {
+                $p = explode("(", $out);
+                $p2 = explode(")", $p[1]);
+                $out = $p[0] . '(#)' . $p2[1];
             }
             $out = str_replace(__DIR__, "", $out);
             $this->writelines .= $out . "\n";
