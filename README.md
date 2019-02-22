@@ -1,6 +1,5 @@
 Pakket
 ======
-[![Build Status](https://travis-ci.org/webdevvie/pakket.svg?branch=master)](https://travis-ci.org/webdevvie/pakket)
 
 Pakket is the Dutch word for package. This tool will help you package your project into a PHAR file.
 
