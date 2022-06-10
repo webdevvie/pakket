@@ -1,6 +1,7 @@
 Looking at source ''
 <info>Compressing files with Gzip</info>
 <info>Buffering</info>
+<info>Queueing file .phpunit.result.cache</info>
 <info>Queueing file BuildCommand.php</info>
 <info>Queueing file Builder.php</info>
 <info>Queueing file HelpCommand.php</info>
@@ -8,6 +9,7 @@ Looking at source ''
 <info>Queueing file README.md</info>
 <info>Queueing file ReadmeCommand.php</info>
 <info>Queueing file composer.json</info>
+<info>Queueing file composer.lock</info>
 <info>Adding parsed file console</info>
 <info>Queueing file defaultStub</info>
 <info>Queueing file help.txt</info>
@@ -19,6 +21,8 @@ Looking at source ''
 <info>Queueing file phpunit.xml</info>
 <info>Queueing file runbuild.sh</info>
 <info>Queueing file stub</info>
+<info>Adding Queued files(#)</info>
+<info>Adding Queued files(#)</info>
 <info>Adding Queued files(#)</info>
 <info>Writing stub</info>
 <info>Writing file</info>

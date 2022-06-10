@@ -26,12 +26,13 @@ class ReadmeCommand extends Command
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return void
+     * @return integer
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $content = file_get_contents(__DIR__ . '/README.md');
         //todo replace md markup to console markup at some point
         $output->writeln("<info>" . $content . "</info>");
+        return self::SUCCESS;
     }
 }

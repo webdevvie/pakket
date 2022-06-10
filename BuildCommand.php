@@ -29,7 +29,7 @@ class BuildCommand extends Command
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return void
+     * @return integer
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -40,7 +40,7 @@ class BuildCommand extends Command
         $output->writeln("<comment>Looking at " . $directory . "</comment>");
         if (!is_dir($realpath)) {
             $output->writeln("<error>Directory $directory does not exist</error>");
-            return;
+            return self::FAILURE;
         }
         $config = [
             "targetFile" => $targetFile,
@@ -52,14 +52,15 @@ class BuildCommand extends Command
             $configFile = json_decode(file_get_contents($realpath . '/pakket.json'), true);
             if (is_null($configFile)) {
                 $output->writeln("<error>Invalid pakket.json</error>");
-                return;
+                return self::FAILURE;
             }
         } else {
             $output->writeln("<error>Cannot find pakket.json</error>");
-            return;
+            return self::FAILURE;
         }
         $config = array_merge($config, $configFile);
         $builder = new Builder($output);
         $builder->build($realpath, $targetFile, $config);
+        return self::SUCCESS;
     }
 }

@@ -28,7 +28,7 @@ class HelpCommand extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @throws \Exception
-     * @return void
+     * @return integer
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -38,5 +38,6 @@ class HelpCommand extends Command
             '--help'
         );
         $this->getApplication()->find('list')->run(new ArrayInput($arguments), $output);
+        return self::SUCCESS;
     }
 }

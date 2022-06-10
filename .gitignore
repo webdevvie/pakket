@@ -5,3 +5,4 @@ pakket.phar
 coverage
 composer.lock
 
+.phpunit.result.cache
