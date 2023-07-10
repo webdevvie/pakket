@@ -195,7 +195,7 @@ class Builder
             $this->output->writeln("<info>Writing file</info>");
             $pharFile->stopBuffering();
         }
-        $this->handleRunCommands($path, $targetPath, $config);
+        $this->handleRunCommands('post',$path, $targetPath, $config);
         return true;
     }
 
