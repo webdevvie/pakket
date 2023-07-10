@@ -4,5 +4,6 @@ build
 pakket.phar
 coverage
 composer.lock
+composer.phar
 
 .phpunit.result.cache

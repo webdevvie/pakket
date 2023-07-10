@@ -61,6 +61,7 @@ class BuildCommand extends Command
         $config = array_merge($config, $configFile);
         $builder = new Builder($output);
         $builder->build($realpath, $targetFile, $config);
+        $output->writeln("<info>Written to file $targetFile</info>");
         return self::SUCCESS;
     }
 }

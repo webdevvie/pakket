@@ -1,4 +1,13 @@
 {
+
+  "preRun": [
+    "{{PHPBIN}} composer.phar install --no-dev --prefer-dist >/dev/null 2>&1",
+    "{{PHPBIN}} composer.phar dump >/dev/null 2>&1"
+  ],
+  "postRun": [
+    "{{PHPBIN}} composer.phar install >/dev/null 2>&1",
+    "chmod +x {{TARGETPATH}}"
+  ],
   "exclude": [
     "/^Tests/i",
     "/^coverage/i",
@@ -29,7 +38,7 @@
   "parse": [
     "/^console/i"
   ],
-  "targetPath": "pakket.phar",
+  "targetPath": "pakket.php{{PHPVERSION}}.phar",
   "index": "console",
   "gzip":true,
   "buffer":true

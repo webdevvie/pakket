@@ -25,13 +25,40 @@ class Builder
     }
 
     /**
-     * @param string     $path
-     * @param string     $targetPath
+     * @param string $type
+     * @param string $path
+     * @param string $targetPath
+     * @param array $config
+     * @return void
+     */
+    private function handleRunCommands($type, $path, $targetPath, array $config = [])
+    {
+        $var = $type . 'Run';
+        if (isset($config[$var]) && is_array($config[$var])) {
+            $runs = $config[$var];
+            foreach ($runs as $cmd) {
+                if (!is_string($cmd)) {
+                    continue;
+                }
+                $cmd = str_replace("{{PHPBIN}}", PHP_BINARY, $cmd);
+                $cmd = str_replace("{{TARGETPATH}}", $targetPath, $cmd);
+                $cmd = "cd $path; " . $cmd;
+                $this->output->writeln("executing $cmd");
+                $this->output->writeln(shell_exec($cmd));
+            }
+        }
+    }
+
+    /**
+     * @param string $path
+     * @param string $targetPath
      * @param null|array $config
      * @return boolean
      */
     public function build($path, $targetPath = '', $config = null)
     {
+
+
         $d = DIRECTORY_SEPARATOR;
         if (!is_dir($path)) {
             $this->output->writeln("<error>No valid path defined defined!</error>");
@@ -59,6 +86,9 @@ class Builder
         }
         $config = array_merge($defaultConfig, $config);
         $targetPath = $config['targetPath'];
+        $phpversion = PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION;
+        $targetPath = str_replace("{{PHPVERSION}}", $phpversion, $targetPath);
+
         $parts = explode($d, $targetPath);
         if ($config['targetPath'] == '') {
             $this->output->writeln("<error>No target file defined!</error>");
@@ -67,6 +97,7 @@ class Builder
         if (file_exists($config['targetPath'])) {
             unlink($config['targetPath']);
         }
+        $this->handleRunCommands('pre', $path, $targetPath, $config);
         $filename = array_pop($parts);
 
         $config['vars']['PHARFILE'] = $filename;
@@ -87,7 +118,7 @@ class Builder
             } else {
                 $config['stub'] = $pharFile->createDefaultStub($config['index']);
             }
-            $stub = "#!/usr/bin/env php\n".$config['stub'];
+            $stub = "#!/usr/bin/env php\n" . $config['stub'];
         } else {
             if ($config['stub'] == '' && $config['stubFile'] != '') {
                 if (file_exists($path . $d . $config['stubFile'])) {
@@ -164,6 +195,7 @@ class Builder
             $this->output->writeln("<info>Writing file</info>");
             $pharFile->stopBuffering();
         }
+        $this->handleRunCommands($path, $targetPath, $config);
         return true;
     }
 
@@ -178,7 +210,7 @@ class Builder
 
     /**
      * @param string $content
-     * @param array  $vars
+     * @param array $vars
      * @return mixed
      */
     public function parse($content, array &$vars)
@@ -191,7 +223,7 @@ class Builder
 
     /**
      * @param string $file
-     * @param array  $config
+     * @param array $config
      * @return boolean
      */
     public function shouldKeep($file, array &$config)
@@ -206,7 +238,7 @@ class Builder
 
     /**
      * @param string $file
-     * @param array  $config
+     * @param array $config
      * @return boolean
      */
     public function shouldParse($file, array &$config)
@@ -220,9 +252,9 @@ class Builder
     }
 
     /**
-     * @param string       $source
+     * @param string $source
      * @param string|array $targetInfo
-     * @param array        $files
+     * @param array $files
      * @return void
      */
     public function getFiles($source, $targetInfo, array &$files)
